@@ -1,0 +1,43 @@
+.container{
+  display: grid;
+  grid-template-columns: 145px 145px 145px 145px;
+  grid-template-rows: 145px 145px 145px 145px 145px 145px;
+}
+
+div div{
+  width: 145px;
+  height: 145px;
+  border: 2px solid black;
+  font-size: 72px;
+  font-family: monospace;
+  text-align: center;
+  line-height: 145px;
+}
+
+#display{
+  grid-column-start: 1;
+  grid-column-end: 5;
+  width: 580px;
+  text-align: right;
+  font-size: 120px;
+}
+
+#button0{
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 290px;
+}
+
+.display{
+  background-color: #606060;
+  color: white;
+}
+
+.number{
+  background-color: #DFDFDF;
+}
+
+.function{
+  background-color: #4040BF;
+  color: white;
+}
