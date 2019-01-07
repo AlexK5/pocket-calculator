@@ -1,36 +1,52 @@
-let display = [0];
-let display2=[0];
+let display = "";
 let value = "";
+let numLength = 0;
+
 function numPress(y){
-  let number=String(y)
-  let p = document.getElementById("display");
-  let list=[];
-  let numLength;
-  if(p.innerHTML=="0"){
-    p.innerHTML="";
-    display=[];
-    display2=[]
-  }
-  display=display2
-  display.push(number);
-  display2=display;
-  value+=number;
-  numLength+=1;
-  for(let i = 0; i<display.length; i++){
-    if(display[i]==","){
-      display.splice(i,1);
+  if(numLength<9){
+    let number;
+    if(y===undefined){
+      number=0;
+    }else{
+      number=String(y);
     }
-  }
-  for(let j = 0; j<display.length; j++){
-    if((numLength-j)%3==0 && numLength>j){
-      display.splice(j,0,",");
+    let p = document.getElementById("display");
+    let displayList=[];
+    let displayList2=[];
+    if(p.innerHTML==="0"){
+      display="";
+      value="";
+      numLength=0;
     }
+    display+=number;
+    value+=number;
+    numLength+=1;
+    for(let i = 0; i<display.length; i++){
+      displayList.push(display[i]);
+    }
+    let x = displayList.length;
+    for(let i = 0; i<x; i++){
+      if(displayList[x-i-1]==","){
+        displayList.splice(x-i-1,1);
+      }
+    }
+    displayList2=displayList;
+    for(let i = 0; i<x; i++){
+      if(i%4==3 && i>0){
+        displayList.splice(displayList2.length-i,0,",");
+      }
+    }
+    display="";
+    for(let i = 0; i<displayList.length; i++){
+      display+=displayList[i]
+    }
+    console.log(display)
+    p.innerHTML=display;
   }
-  display.push("");
-  let x = display.length;
-  for(let k = 0; k<x-1; k++){
-    display[x-1]+=display[k];
-    display=display[x-1];
 }
-  p.innerHTML=display;
+
+function clear(){
+  display=""
+  value=""
+
 }
