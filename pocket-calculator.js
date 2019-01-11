@@ -4,7 +4,7 @@ let numLength = 0;
 let decimal=false;
 
 function numPress(y){
-  if(numLength<9){
+  if(numLength<9 || y===undefined){
     let number;
     if(y===undefined){
       number=0;
@@ -43,7 +43,7 @@ function numPress(y){
           iDigits=i
         }
       }else{
-        if(i-iDigits%4==3 && i>0){
+        if((i-iDigits)%4==3 && i>0){
           displayList.splice(displayList2.length-i,0,",");
         }
       }
@@ -56,11 +56,15 @@ function numPress(y){
   }
 }
 
-function clearAll(){
+function clearAll(operation){
   display="";
-  value="";
   numlength=0;
   numPress();
+  if(operation===undefined){
+    value=""
+  }else{
+    value+=operation
+  }
 }
 
 function useDecimal(){
@@ -70,4 +74,19 @@ function useDecimal(){
     p.innerHTML+=".";
     decimal=true;
   }
+}
+
+function evaluate1(){
+  console.log(value);
+  let p = document.getElementById("display");
+  p.innerHTML=String(eval(value))
+  value=String(eval(value))
+  if(value.includes('.')){
+    decimal=true;
+  }
+  else{
+    decimal=false;
+  }
+  numLength=p.innerHTML.length();
+  numPress();
 }
