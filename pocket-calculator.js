@@ -2,10 +2,12 @@ let display = "";
 let value = "";
 let numLength = 0;
 let decimal=false;
+let operated=false;
+let equals=false;
 
 function numPress(y){
   if(numLength<9 || y===undefined){
-    let number;
+    var number;
     if(y===undefined){
       number=0;
     }else{
@@ -18,12 +20,22 @@ function numPress(y){
     let iDigits=0;
     if(p.innerHTML==="0"){
       display="";
-      value="";
       numLength=0;
     }
-    display+=number;
-    value+=number;
-    numLength+=1;
+    if(p.innerHTML==="0" && operated===false){
+      value="";
+    }
+    if(y!==undefined){
+      operated=false;
+    }
+    if(operated===false){
+      value+=number;
+    }
+    if(equals===false){
+      display+=number;
+      numLength+=1;
+    }
+    equals=false;
     for(let i = 0; i<display.length; i++){
       displayList.push(display[i]);
     }
@@ -59,15 +71,23 @@ function numPress(y){
 function clearAll(operation){
   display="";
   numlength=0;
+  if(operation!==undefined){
+    operated=true;
+    equals=false;
+  }
   numPress();
   if(operation===undefined){
     value=""
+    operated=false;
+    equals=false;
   }else{
     value+=operation
   }
 }
 
 function useDecimal(){
+  operated=false;
+  equals=false;
   let p = document.getElementById("display");
   display+="."
   if(decimal===false){
@@ -77,16 +97,18 @@ function useDecimal(){
 }
 
 function evaluate1(){
-  console.log(value);
+  let x=eval(value)
+  operated=true;
+  equals=true;
   let p = document.getElementById("display");
-  p.innerHTML=String(eval(value))
-  value=String(eval(value))
-  if(value.includes('.')){
+  p.innerHTML=String(x);
+  display=String(x);
+  if(String(x).includes('.')){
     decimal=true;
   }
   else{
     decimal=false;
   }
-  numLength=p.innerHTML.length();
+  numLength=p.innerHTML.length;
   numPress();
 }
