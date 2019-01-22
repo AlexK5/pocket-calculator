@@ -344,6 +344,7 @@ function percentage(){
     lastNum=lastNum.substring(1,lastNum.length-1);
     lastOp[1]=lastNum;
   }
+  lastNum=String(lastNum);
   if(lastNum.includes("e")){
     let k=0;
     let partOne="";
