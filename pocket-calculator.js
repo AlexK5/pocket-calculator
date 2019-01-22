@@ -70,7 +70,6 @@ function delineate(){
   }
   p.innerHTML=display;
 }
-
 function replaceLast(){
   if(Number(lastNum)<0){
     lastNum=`(${lastNum})`
@@ -161,7 +160,6 @@ function numPress(y){
       replaceLast();
     }
     numLength+=1;
-
     if(lastNum[0]=="(" && lastNum[lastNum.length-1]==")"){
       lastNum=lastNum.substring(1,lastNum.length-1);
     }
@@ -235,7 +233,6 @@ function clearAll(operation){
     value+=operation;
   }
 }
-
 function useDecimal(){
   if(equals===true){
     clearAll();
@@ -344,7 +341,7 @@ function percentage(){
     lastNum=lastNum.substring(1,lastNum.length-1);
     lastOp[1]=lastNum;
   }
-  lastNum=String(lastNum);
+  lastNum=String(lastNum)
   if(lastNum.includes("e")){
     let k=0;
     let partOne="";
@@ -553,14 +550,17 @@ function pi(){
   if(equals===true && percent===false){
     clearAll();
   }
-  if(display=="0" || display==""){
-    lastNum=Math.PI;
+  if(display.includes('-')){
+    lastNum="-"+String(Math.PI);
+    display="-"+String(Math.PI.toFixed(8));
+  }else{
+    lastNum=String(Math.PI);
     display=String(Math.PI.toFixed(8));
-    decimal=true;
-    operated=false;
-    equals=false;
-    numLength=9;
-    replaceLast();
-    delineate();
   }
+  decimal=true;
+  operated=false;
+  equals=false;
+  numLength=9;
+  replaceLast();
+  delineate();
 }
