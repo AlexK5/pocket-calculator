@@ -75,6 +75,9 @@ function replaceLast(){
   if(Number(lastNum)<0){
     lastNum=`(${lastNum})`
   }
+  if(lastNum=="."){
+    lastNum="0.";
+  }
   while(isNaN(value[value.length-1])==false || value[value.length-1]=="." || value[value.length-1]=="e" || (value[value.length-1]=="+" && value[value.length-2]=="e") || value[value.length-1]==")" || "InfinityErrorNaN".includes(value[value.length-1]) || value[value.length-1]=="(" || (value[value.length-1]=="-" && (value[value.length-2]=="(" || (value.length===1 && lastNum<=0) || value[value.length-2]=="e" || ops.includes(value[value.length-2]))) && value!=""){
     if(isNaN(value[value.length-1])==false || value[value.length-1]=="." || value[value.length-1]=="e" || (value[value.length-1]=="+" && value[value.length-2]=="e") || value[value.length-1]==")" || "InfinityErrorNaN".includes(value[value.length-1]) || value[value.length-1]=="(" || (value[value.length-1]=="-" && (value[value.length-2]=="(" || (value.length===1 && lastNum<=0) || value[value.length-2]=="e" ||  ops.includes(value[value.length-2])))){
       value=value.substring(0,value.length-1);
@@ -193,7 +196,9 @@ function clearAll(operation){
   let equals2=equals;
   if(operation!==undefined){
     replaceLast();
-    secondNum=lastNum;
+    if(operated===false){
+      secondNum=lastNum;
+    }
     operated=true;
     equals=false;
     decimal=false;
@@ -253,7 +258,7 @@ function evaluate1(){
   replaceLast();
   let y = value.length;
   for(let i = 0; i<y; i++){
-    if(value[y-i-1]==0 && value[y-i-2]=="-"){
+    if(value[y-i-1]==0 && value[y-i-2]=="-" && eval(value)!="0"){
       value=value.substring(0,y-i-1)+value.substring(y-i);
     }
   }
@@ -540,5 +545,21 @@ function plusMinus(){
     delineate();
   }else{
     document.getElementById("display").innerHTML=display;
+  }
+}
+
+function pi(){
+  if(equals===true && percent===false){
+    clearAll();
+  }
+  if(display=="0" || display==""){
+    lastNum=Math.PI;
+    display=String(Math.PI.toFixed(8));
+    decimal=true;
+    operated=false;
+    equals=false;
+    numLength=9;
+    replaceLast();
+    delineate();
   }
 }
